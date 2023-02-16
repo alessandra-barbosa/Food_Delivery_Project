@@ -167,7 +167,7 @@ st.sidebar.markdown('----------------------')
 st.sidebar.markdown('## :orange[ Select the city type:]')
 
 cityselection=st.sidebar.multiselect ("Which city type?",
-                                        ['Metropolitian','Urban'], ['Metropolitian','Urban'])
+                                        ['Metropolitian','Urban','Semi-Urban'], ['Metropolitian','Urban','Semi-Urban'])
                                          
 st.sidebar.markdown('----------------------')
 st.sidebar.markdown('###### @by Alessandra Barbosa')
