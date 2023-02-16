@@ -170,3 +170,4 @@ with tab2:
             
     with tab3:
         st.markdown('#### Ask for help _@Alessandra_Barbosa_')
+        st.markdown('##### Linkedin: https://www.linkedin.com/in/alessandra-barbosa/')
