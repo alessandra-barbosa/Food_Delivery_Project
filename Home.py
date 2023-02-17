@@ -137,7 +137,7 @@ df=df.loc[df['type_of_order'].isin( cityselection),:]
 #Layout
 #=================================
 with st.container():
-    cols1,cols2=st.columns([2, 0.7], gap='small')
+    cols1,cols2=st.columns([2, 0.9], gap='small')
     with cols1:
         image1=Image.open('banner.png')    
         cols1.image(image1,width=700, use_column_width=300)
