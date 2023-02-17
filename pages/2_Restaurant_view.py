@@ -15,21 +15,25 @@ st.set_page_config(page_title="Company View", page_icon=":)", layout="wide")
 # #Auxiliary functions
 ############################
 def delivery_city_traf(df):
-            df_delivery = df.loc[:,['time_taken(min)', 'city','road_traffic_density']].groupby(['city','road_traffic_density']).agg({'time_taken(min)':['mean','std']})
-            df_delivery.columns=['mean_time_taking', 'std_time_taking']
-            df_delivery=df_delivery.reset_index()
-            fig=px.sunburst(df_delivery, path=['city','road_traffic_density'], values='mean_time_taking',color='std_time_taking',
+    df_delivery = df.loc[:,['time_taken(min)', 'city','road_traffic_density']].groupby(['city','road_traffic_density']).agg({'time_taken(min)':['mean','std']})
+    df_delivery.columns=['mean_time_taking', 'std_time_taking']
+    df_delivery=df_delivery.reset_index()
+    fig=px.sunburst(df_delivery, path=['city','road_traffic_density'], values='mean_time_taking',color='std_time_taking',
             color_continuous_scale='RdBu',color_continuous_midpoint=np.average(df_delivery['std_time_taking']))
-            st.plotly_chart(fig)
-            return fig
+    st.plotly_chart(fig)
+    return fig
         
-def delivery_2(df_delivery):
+def delivery_2(df):
+    df_delivery = df.loc[:,['time_taken(min)', 'city']].groupby('city').agg({'time_taken(min)':['mean','std']})
+    df_delivery.columns=['mean_time_taking', 'std_time_taking']
+    df_delivery=df_delivery.reset_index()
     fig=go.Figure(data=[go.Pie(labels=df_delivery['city'],values=df_delivery['mean_time_taking'],pull=[0,0,0.2])])
     st.plotly_chart(fig)
     return fig
 
 def box(df):
-    fig=st.box(df, x="city",y='time_taken(min)',color='road_traffic_density')  
+    fig=px.box(df, x="city",y='time_taken(min)',color='road_traffic_density') 
+    st.plotly_chart(fig)
     return fig
 
 def delivery_1(df):
@@ -216,17 +220,15 @@ with tab1:
     with st.container():
         st.markdown('----------------------')
 
-        cols1,cols2=st.columns([2,1], gap='large')
-        with cols1:
-            st.markdown('### Average delivery time and standard deviation by city')
-            fig=delivery(df)
-            
-            
-        with cols2:
-            st.markdown('### Average delivery time and standard deviation by city and order type')
-           
-            fig=box(df)
+        st.markdown('### Average delivery time and standard deviation by city')
+        fig=delivery(df)
+    
+    with st.container():
+        st.markdown('----------------------')
 
+        st.markdown('### Delivery time distribution by city and order type')
+        fig=box(df)
+   
     with st.container():
         st.markdown('----------------------')
 
@@ -234,7 +236,7 @@ with tab1:
 
         with cols1:
             st.markdown('###  Delivery time average and standard deviation by city')
-            fig=delivery_2(df_delivery)
+            fig=delivery_2(df)
             
         with cols2:
             st.markdown('### Delivery time average and standard deviation by city and type of traffic')
