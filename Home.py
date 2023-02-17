@@ -139,7 +139,6 @@ df=df.loc[df['type_of_order'].isin( cityselection),:]
 with st.container():
     st.markdown('Food Delivery Project')  
     st.markdown('----------------------')       
-express
 
 with st.container():
     cols1,cols2=st.columns([2, 1], gap='small')
