@@ -28,6 +28,10 @@ def delivery_2(df_delivery):
     st.plotly_chart(fig)
     return fig
 
+def box(df):
+    fig=st.box(df, x="city",y='time_taken(min)',color='road_traffic_density')  
+    return fig
+
 def delivery_1(df):
     df_delivery = df.loc[:,['time_taken(min)', 'city','type_of_order']].groupby(['city','type_of_order']).agg({'time_taken(min)':['mean','std']})
     df_delivery.columns=['mean_time_taking', 'std_time_taking']
@@ -61,6 +65,8 @@ def fest(df):
     df_fest=df.loc[df['festival']=='Yes']
     df_fest=np.round(df_fest['time_taken(min)'],2)
     return df_fest
+ 
+
 
 def clear_data(df):
     """ 
@@ -218,8 +224,8 @@ with tab1:
             
         with cols2:
             st.markdown('### Average delivery time and standard deviation by city and order type')
-            df_delivery=delivery_1(df)
-            st.dataframe(df_delivery)
+           
+            fig=box(df)
 
     with st.container():
         st.markdown('----------------------')
