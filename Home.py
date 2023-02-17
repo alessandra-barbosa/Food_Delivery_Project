@@ -137,7 +137,7 @@ df=df.loc[df['type_of_order'].isin( cityselection),:]
 #Layout
 #=================================
 with st.container():
-    st.markdown('# :green [Food Delivery Project]')  
+    st.markdown('# :green[Food Delivery Project]')  
     st.markdown('----------------------')       
 
 with st.container():
