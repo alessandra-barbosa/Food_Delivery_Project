@@ -21,7 +21,18 @@ st.set_page_config(
 #################################
 #Auxiliary functions
 #################################
-
+def maps(df):
+        data_plot = df.loc[:,['city', 'road_traffic_density','delivery_location_latitude','delivery_location_longitude']].groupby(                    
+                                ['city','road_traffic_density']).median().reset_index()
+        # Desenhar o mapa
+        map = folium.Map( location=[18.546947,75.898497], zoom_start=5.5)
+        for index, location_info in data_plot.iterrows():
+            folium.Marker( [location_info['delivery_location_latitude'],
+            location_info['delivery_location_longitude']],
+            popup=location_info[['city', 'road_traffic_density']] ).add_to( map )
+        folium_static(map, width=1024,height=600)
+        return None
+    
 def clear_data(df):# ID - Remove spaces in strings
     """ 
             Clean dataset with:
@@ -126,8 +137,10 @@ df=df.loc[df['type_of_order'].isin( cityselection),:]
 #Layout
 #=================================
 image1=Image.open('banner.png')    
-st.image(image1,width=800, use_column_width=None)
+st.image(image1,width=None, use_column_width=None)
+    
 
+    
 tab1, tab2, tab3 = st.tabs(["Home","How to use", "Ask for help"])
 
 with tab1:
@@ -153,7 +166,8 @@ with tab1:
    
         st.markdown('----------------------')       
         
-
+    st.markdown( '## City Map')
+    maps(df)
 with tab2:
     st.markdown("""
     #### **How to use the dashboard?**:pencil:

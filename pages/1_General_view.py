@@ -88,16 +88,16 @@ def clear_data(df):# ID - Remove spaces in strings
     return df
     
 def maps(df):
-        data_plot = df.loc[:,['city', 'road_traffic_density','delivery_location_latitude','delivery_location_longitude']].groupby(                    
+    data_plot = df.loc[:,['city', 'road_traffic_density','delivery_location_latitude','delivery_location_longitude']].groupby(                    
                                 ['city','road_traffic_density']).median().reset_index()
         # Desenhar o mapa
-        map = folium.Map( zoom_start=0.1 )
-        for index, location_info in data_plot.iterrows():
-            folium.Marker( [location_info['delivery_location_latitude'],
-            location_info['delivery_location_longitude']],
-            popup=location_info[['city', 'road_traffic_density']] ).add_to( map )
-        folium_static(map, width=1024,height=600)
-        return None
+    map = folium.Map( location=[18.546947,75.898497], zoom_start=5.5)
+    for index, location_info in data_plot.iterrows():
+        folium.Marker( [location_info['delivery_location_latitude'],
+        location_info['delivery_location_longitude']],
+        popup=location_info[['city', 'road_traffic_density']] ).add_to( map )
+    folium_static(map, width=1024,height=600)
+    return None
     
 def order_person_week(df):
         df_aux1 = df.loc[:, ['id', 'week_of_year']].groupby( 'week_of_year' ).count().reset_index()
