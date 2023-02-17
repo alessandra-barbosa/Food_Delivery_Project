@@ -204,7 +204,7 @@ st.header('_:red[Cury Company] :green[General View]_ ')
 st.caption('Cury Company is a marketplace that connects restaurants, delivery personnel, and consumers through its app.')
 st.caption('In this project, I was responsible for designing metrics, analyzing data, creating a dashboard, and developing an algorithm to assist the CEO in accurately estimating delivery times.')
 
-tab1, tab2, tab3 = st.tabs(["Strategic View", "Management View", "Geografic View"])
+tab1, tab2 = st.tabs(["Strategic View", "Management View"])
 
 with tab1:
     with st.container():
@@ -232,8 +232,5 @@ with tab2:
     with cols2:
         fig=order_person_week(df)
     
-with tab3:
-    st.markdown( '## Country Map')
-    maps(df)
 
     
