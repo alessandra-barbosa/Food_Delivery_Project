@@ -210,7 +210,7 @@ with tab1:
     with st.container():
         st.markdown('----------------------')
 
-        cols1,cols2=st.columns(2, gap='large')
+        cols1,cols2=st.columns([2,1], gap='large')
         with cols1:
             st.markdown('### Average delivery time and standard deviation by city')
             fig=delivery(df)
